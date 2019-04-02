@@ -43,7 +43,7 @@ function selectLoad() {
 						type : params.selected,
 					}
 				}
-				$('#exampleTable').bootstrapTable('refresh', opt);
+				//$('#exampleTable').bootstrapTable('refresh', opt);
 			});
 		}
 	});
@@ -79,7 +79,8 @@ function load() {
 						limit : params.limit,
 						offset : params.offset,
 						// name:$('#searchName').val(),
-						type : $('#searchName').val(),
+						type : $('#type').val(),
+                        name : $('#name').val()
 					};
 				},
 				// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
@@ -175,11 +176,19 @@ function load() {
 function reLoad() {
 	var opt = {
 		query : {
-			type : $('.chosen-select').val(),
+			type : $('#type').val(),
+			name : $('#name').val()
 		}
 	}
 	$('#exampleTable').bootstrapTable('refresh', opt);
 }
+
+function reset() {
+    $('#name').val('');
+    $("#type").val("");
+    $("#type").trigger("chosen:updated");
+}
+
 function add() {
 	layer.open({
 		type : 2,

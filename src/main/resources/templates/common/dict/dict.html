@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="gray-bg">
@@ -17,15 +17,25 @@
 								type="button" class="btn  btn-danger" onclick="batchRemove()">
 								<i class="fa fa-trash" aria-hidden="true"></i>删除
 							</button>
+							<span shiro:hasPermission="can_see" style="font-size: 25px; color: red">
+								只能查看,无操作权限.
+							</span>
 						</div>
-						<div class="columns pull-right">
+						<div class="columns pull-right" >
 							<button class="btn btn-success" onclick="reLoad()">查询</button>
 						</div>
+						<div class="columns pull-right">
+							<button class="btn btn-success" onclick="reset()">重置</button>
+						</div>
 						<div class="columns pull-right col-md-2 nopadding">
-							<select data-placeholder="选择类别" class="form-control chosen-select"
+							<select data-placeholder="选择类别" class="form-control chosen-select" id="type"
 								tabindex="2" style="width: 100%">
 								<option value="">选择类别</option>
 							</select>
+						</div>
+						<div class="columns pull-right col-md-2 nopadding">
+							<input id="name" type="text" class="form-control" style="margin-top: 2px"
+								   placeholder="标签名">
 						</div>
 					</div>
 					<table id="exampleTable" data-mobile-responsive="true">
@@ -40,6 +50,7 @@
 			var s_edit_h = 'hidden';
 			var s_remove_h = 'hidden';
 			var s_resetPwd_h = 'hidden';
+			var s_add_h = 'hidden';
 		</script>
 	</div>
 	<div shiro:hasPermission="common:dict:edit">

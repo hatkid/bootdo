@@ -6,6 +6,8 @@ import com.bootdo.common.service.DictService;
 import com.bootdo.common.utils.PageUtils;
 import com.bootdo.common.utils.Query;
 import com.bootdo.common.utils.R;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,9 +43,9 @@ public class DictController extends BaseController {
 	public PageUtils list(@RequestParam Map<String, Object> params) {
 		// 查询列表数据
 		Query query = new Query(params);
+		Page page = PageHelper.startPage(query.getOffset(), query.getLimit());
 		List<DictDO> dictList = dictService.list(query);
-		int total = dictService.count(query);
-		PageUtils pageUtils = new PageUtils(dictList, total);
+		PageUtils pageUtils = new PageUtils(dictList, (int)page.getTotal());
 		return pageUtils;
 	}
 
