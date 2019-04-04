@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.finance.dao.CompanyFinanceDao">
+
+	<select id="list" resultType="com.bootdo.finance.domain.CompanyFinanceDO">
+		select cf.id, cf.companyName,
+		IFNULL((select SUM(sd.total) from supplierdetail sd where sd.company_finance_id = cf.id and sd.row_state = 1),0) loanAmount,
+		cf.arrears,
+		IFNULL((select SUM(sd.paid) from supplierdetail sd where sd.company_finance_id = cf.id and sd.row_state = 1),0) paid,
+		(IFNULL((select SUM(sd.total) from supplierdetail sd where sd.company_finance_id = cf.id and sd.row_state = 1),0) + cf.arrears -IFNULL((select SUM(sd.paid) from supplierdetail sd where sd.company_finance_id = cf.id and sd.row_state = 1),0)   ) totalArrears
+		from companyfinance cf
+		where cf.row_state = 1
+		<if test="companyName != null and companyName!=''">
+			and cf.companyName like
+			CONCAT('%',TRIM(#{companyName,jdbcType=VARCHAR}),'%')
+		</if>
+		order by cf.row_create_time desc
+	</select>
+
+	<insert id="save" parameterType="com.bootdo.finance.domain.CompanyFinanceDO"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		companyfinance(companyName,loanAmount,arrears,paid,totalArrears,channel,row_creater,row_modifier,row_create_time,row_modify_time)
+		VALUES(#{companyName,jdbcType=VARCHAR},#{loanAmount,jdbcType=DOUBLE},#{arrears,jdbcType=DOUBLE},#{paid,jdbcType=DOUBLE},#{totalArrears,jdbcType=DOUBLE},#{channel,jdbcType=TINYINT},#{row_creater,jdbcType=VARCHAR},
+		#{row_modifier,jdbcType=INTEGER},str_to_date(#{row_create_time},'%Y-%m-%d %H:%i:%s'),str_to_date(#{row_modify_time},'%Y-%m-%d %H:%i:%s'))
+	</insert>
+
+	<update id="update" parameterType="com.bootdo.common.domain.DictDO">
+		update sys_dict
+		<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="value != null">`value` = #{value}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="description != null">`description` = #{description}, </if>
+			<if test="sort != null">`sort` = #{sort}, </if>
+			<if test="parentId != null">`parent_id` = #{parentId}, </if>
+			<if test="createBy != null">`create_by` = #{createBy}, </if>
+			<if test="createDate != null">`create_date` = #{createDate}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
+			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+			<if test="remarks != null">`remarks` = #{remarks}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="remove">
+		delete from sys_dict where id = #{value}
+	</delete>
+
+	<delete id="batchRemove">
+		delete from sys_dict where id in
+		<foreach item="id" collection="array" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

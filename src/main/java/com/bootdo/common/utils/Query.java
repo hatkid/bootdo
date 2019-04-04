@@ -13,6 +13,9 @@ public class Query extends LinkedHashMap<String, Object> {
 	// 每页条数
 	private int limit;
 
+	// 页码
+	private int page;
+
 	public Query(Map<String, Object> params) {
 		this.putAll(params);
 		// 分页参数
@@ -21,6 +24,7 @@ public class Query extends LinkedHashMap<String, Object> {
 		this.put("offset", offset);
 		this.put("page", offset / limit + 1);
 		this.put("limit", limit);
+		this.page = offset / limit + 1;
 	}
 
 	public int getOffset() {
@@ -37,5 +41,13 @@ public class Query extends LinkedHashMap<String, Object> {
 
 	public void setLimit(int limit) {
 		this.limit = limit;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
 	}
 }
