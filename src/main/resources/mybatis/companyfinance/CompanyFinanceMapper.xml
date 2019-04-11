@@ -45,16 +45,16 @@
 		where id = #{id}
 	</update>
 
-	<delete id="remove">
-		delete from sys_dict where id = #{value}
-	</delete>
+	<update id="remove">
+		update companyfinance set row_state = 0 where id = #{value}
+	</update>
 
-	<delete id="batchRemove">
-		delete from sys_dict where id in
+	<update id="batchRemove">
+		update companyfinance set row_state = 0 where id in
 		<foreach item="id" collection="array" open="(" separator=","
 			close=")">
 			#{id}
 		</foreach>
-	</delete>
+	</update>
 
 </mapper>

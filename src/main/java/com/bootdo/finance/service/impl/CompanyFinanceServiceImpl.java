@@ -42,11 +42,11 @@ public class CompanyFinanceServiceImpl implements CompanyFinanceService {
 
     @Override
     public int remove(Long id) {
-        return dictDao.remove(id);
+        return companyFinanceDao.remove(id);
     }
 
     @Override
     public int batchRemove(Long[] ids) {
-        return dictDao.batchRemove(ids);
+        return companyFinanceDao.batchRemove(ids);
     }
 }

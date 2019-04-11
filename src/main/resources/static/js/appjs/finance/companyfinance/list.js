@@ -88,10 +88,7 @@ function load() {
 							var d = '<a class="btn btn-warning btn-sm ' + s_remove_h + '" href="#" title="删除"  mce_href="#" onclick="remove(\''
 								+ row.id
 								+ '\')"><i class="fa fa-remove"></i></a> ';
-							var f = '<a class="btn btn-success btn-sm ' + s_add_h + '" href="#" title="增加"  mce_href="#" onclick="addD(\''
-								+ row.type +'\',\''+row.description
-								+ '\')"><i class="fa fa-plus"></i></a> ';
-							return e + d +f;
+							return e + d;
 						}
 					} ]
 			});

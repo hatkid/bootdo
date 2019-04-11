@@ -12,6 +12,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -75,9 +76,18 @@ public class CompanyFinanceController {
 	@RequiresPermissions("companyFinance:add")
 	public R save(CompanyFinanceDO companyFinanceDO) {
 		EntityUtil.setCommonInfo(companyFinanceDO);
-		if (companyFinanceService.save(companyFinanceDO) > 0) {
-			return R.ok();
+		// 判断捕捉公司名字重复的提醒
+		try {
+			if (companyFinanceService.save(companyFinanceDO) > 0) {
+				return R.ok();
+			}
+		} catch (Exception e) {
+			if (e instanceof DuplicateKeyException) {
+				return R.error("公司名称重复!");
+			}
 		}
+
+
 		return R.error();
 	}
 
@@ -99,7 +109,7 @@ public class CompanyFinanceController {
 	@ResponseBody
 	@RequiresPermissions("companyFinance:remove")
 	public R remove(Long id) {
-		if (dictService.remove(id) > 0) {
+		if (companyFinanceService.remove(id) > 0) {
 			return R.ok();
 		}
 		return R.error();
@@ -112,7 +122,7 @@ public class CompanyFinanceController {
 	@ResponseBody
 	@RequiresPermissions("companyFinance:batchRemove")
 	public R remove(@RequestParam("ids[]") Long[] ids) {
-		dictService.batchRemove(ids);
+		companyFinanceService.batchRemove(ids);
 		return R.ok();
 	}
 }
