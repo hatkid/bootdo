@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.finance.dao.SupplierDetailDao">
+
+	<select id="list" resultType="com.bootdo.finance.domain.SupplierDetailDO">
+		select sd.id id, sd.purchase_name purchaseName, sd.unit, sd.amount, sd.price, sd.total,
+		sd.paid, sd.payment, date_format(sd.timedate, '%Y-%m-%d') timedate, cf.companyName, cf.id companyId from supplierdetail sd, companyfinance cf
+		where cf.id = sd.company_finance_id and sd.row_state = 1
+		<if test="companyId != null and companyId!=''">
+			and sd.company_finance_id = #{companyId,jdbcType=INTEGER}
+		</if>
+		<if test="createTimeStart != null and createTimeStart != ''">
+			and sd.timedate &gt;= str_to_date(#{createTimeStart},'%Y-%m-%d %H:%i:%s')
+		</if>
+		<if test="createTimeEnd != null and createTimeEnd != ''">
+			and sd.timedate &lt;= str_to_date(#{createTimeEnd},'%Y-%m-%d %H:%i:%s')
+		</if>
+		order by sd.timedate desc
+	</select>
+
+	<select id="get" resultType="com.bootdo.finance.domain.SupplierDetailDO">
+		select sd.* FROM supplierdetail sd where sd.id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<insert id="save" parameterType="com.bootdo.finance.domain.SupplierDetailDO"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		supplierdetail(company_finance_id,purchase_name,unit,amount,price,total,paid,payment,row_creater,row_modifier,row_create_time,row_modify_time,timedate)
+		VALUES(#{companyId,jdbcType=INTEGER},#{purchaseName,jdbcType=VARCHAR},
+		#{unit,jdbcType=DOUBLE},#{amount,jdbcType=DOUBLE},#{price,jdbcType=DOUBLE},
+		#{total,jdbcType=DOUBLE},#{paid,jdbcType=DOUBLE},#{payment,jdbcType=VARCHAR},
+		#{row_creater,jdbcType=VARCHAR},
+		#{row_modifier,jdbcType=INTEGER},str_to_date(#{row_create_time},'%Y-%m-%d %H:%i:%s'),str_to_date(#{row_modify_time},'%Y-%m-%d %H:%i:%s'),str_to_date(#{timedate},'%Y-%m-%d %H:%i:%s'))
+	</insert>
+
+	<update id="update" parameterType="com.bootdo.finance.domain.SupplierDetailDO">
+		UPDATE supplierdetail SET
+		company_finance_id = #{companyId},
+		purchase_name = #{purchaseName},
+		unit = #{unit},
+		timedate = str_to_date(#{timedate},'%Y-%m-%d %H:%i:%s'),
+		amount = #{amount},
+		price = #{price},
+		total = #{total},
+		paid = #{paid},
+		payment = #{payment},
+		row_modifier = #{row_modifier,jdbcType=INTEGER},
+		row_modify_time = str_to_date(#{row_modify_time},'%Y-%m-%d %H:%i:%s')
+		WHERE id=#{id,jdbcType=INTEGER}
+	</update>
+
+	<update id="remove">
+		update supplierdetail set row_state = 0, row_modifier = #{row_modifier,jdbcType=INTEGER}, row_modify_time = str_to_date(#{row_modify_time},'%Y-%m-%d %H:%i:%s') where id = #{id}
+	</update>
+
+	<update id="batchRemove">
+		update supplierdetail set row_state = 0, row_modifier = #{supplierDetailDO.row_modifier,jdbcType=INTEGER}, row_modify_time = str_to_date(#{supplierDetailDO.row_modify_time},'%Y-%m-%d %H:%i:%s') where id in
+		<foreach item="id" collection="ids" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</update>
+
+</mapper>
