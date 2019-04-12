@@ -18,6 +18,10 @@
 		order by cf.row_create_time desc
 	</select>
 
+	<select id="get" resultType="com.bootdo.finance.domain.CompanyFinanceDO">
+		select cf.id, cf.companyName, cf.arrears FROM companyfinance cf where cf.id = #{id,jdbcType=INTEGER}
+	</select>
+
 	<insert id="save" parameterType="com.bootdo.finance.domain.CompanyFinanceDO"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
@@ -26,32 +30,24 @@
 		#{row_modifier,jdbcType=INTEGER},str_to_date(#{row_create_time},'%Y-%m-%d %H:%i:%s'),str_to_date(#{row_modify_time},'%Y-%m-%d %H:%i:%s'))
 	</insert>
 
-	<update id="update" parameterType="com.bootdo.common.domain.DictDO">
-		update sys_dict
+	<update id="update" parameterType="com.bootdo.finance.domain.CompanyFinanceDO">
+		update companyfinance
 		<set>
-			<if test="name != null">`name` = #{name}, </if>
-			<if test="value != null">`value` = #{value}, </if>
-			<if test="type != null">`type` = #{type}, </if>
-			<if test="description != null">`description` = #{description}, </if>
-			<if test="sort != null">`sort` = #{sort}, </if>
-			<if test="parentId != null">`parent_id` = #{parentId}, </if>
-			<if test="createBy != null">`create_by` = #{createBy}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
-			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
-			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
-			<if test="remarks != null">`remarks` = #{remarks}, </if>
-			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+			<if test="companyName != null">`companyName` = #{companyName}, </if>
+			<if test="arrears != null">`arrears` = #{arrears}, </if>
+			<if test="row_modifier != null">`row_modifier` = #{row_modifier}, </if>
+			<if test="row_modify_time != null">`row_modify_time` =str_to_date(#{row_modify_time},'%Y-%m-%d %H:%i:%s'), </if>
 		</set>
 		where id = #{id}
 	</update>
 
 	<update id="remove">
-		update companyfinance set row_state = 0 where id = #{value}
+		update companyfinance set row_state = 0, row_modifier = #{row_modifier,jdbcType=INTEGER}, row_modify_time = str_to_date(#{row_modify_time},'%Y-%m-%d %H:%i:%s') where id = #{id}
 	</update>
 
 	<update id="batchRemove">
-		update companyfinance set row_state = 0 where id in
-		<foreach item="id" collection="array" open="(" separator=","
+		update companyfinance set row_state = 0, row_modifier = #{companyFinaceDO.row_modifier,jdbcType=INTEGER}, row_modify_time = str_to_date(#{companyFinaceDO.row_modify_time},'%Y-%m-%d %H:%i:%s') where id in
+		<foreach item="id" collection="ids" open="(" separator=","
 			close=")">
 			#{id}
 		</foreach>

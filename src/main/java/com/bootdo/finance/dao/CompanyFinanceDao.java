@@ -3,6 +3,7 @@ package com.bootdo.finance.dao;
 import com.bootdo.common.domain.DictDO;
 import com.bootdo.finance.domain.CompanyFinanceDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -17,15 +18,15 @@ import java.util.Map;
 @Mapper
 public interface CompanyFinanceDao {
 
-	DictDO get(Long id);
+	CompanyFinanceDO get(Long id);
 
 	List<CompanyFinanceDO> list(Map<String, Object> map);
 
 	int save(CompanyFinanceDO companyFinanceDO);
 
-	int update(DictDO dict);
+	int update(CompanyFinanceDO companyFinanceDO);
 
-	int remove(Long id);
+	int remove(CompanyFinanceDO companyFinanceDO);
 
-	int batchRemove(Long[] ids);
+	int batchRemove(@Param("ids") Long[] ids, @Param("companyFinaceDO") CompanyFinanceDO companyFinanceDO);
 }

@@ -18,7 +18,7 @@
 								<i class="fa fa-trash" aria-hidden="true"></i>批量删除
 							</button>
 							<button shiro:hasPermission="companyFinance:export"
-									type="button" class="btn  btn-danger" onclick="batchRemove()">
+									type="button" class="btn  btn-danger" onclick="exportData()">
 								<i class="glyphicon glyphicon-export" aria-hidden="true"></i>导出
 							</button>
 							<span shiro:hasPermission="can_see" style="font-size: 25px; color: red">
@@ -67,6 +67,13 @@
 		</script>
 	</div>
 
+	</div>
+	<div style="display:none;">
+		<form action="companyFinance/download" method="get"
+			  id="download">
+			<input type="hidden" name="companyName"
+				   id="companyNameDownload" />
+		</form>
 	</div>
 	<div th:include="include :: footer"></div>
 	<script type="text/javascript"

@@ -158,6 +158,14 @@ function addD(type,description) {
 		content : prefix + '/add/'+type+'/'+description // iframe的url
 	});
 }
+
+function exportData() {
+    var companyName = $('#companyName').val();
+    $("#companyNameDownload").val(companyName);
+    $("#download").submit();
+}
+
+
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
 	if (rows.length == 0) {

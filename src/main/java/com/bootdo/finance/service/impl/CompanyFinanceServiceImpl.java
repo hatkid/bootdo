@@ -1,7 +1,4 @@
 package com.bootdo.finance.service.impl;
-
-import com.bootdo.common.dao.DictDao;
-import com.bootdo.common.domain.DictDO;
 import com.bootdo.finance.dao.CompanyFinanceDao;
 import com.bootdo.finance.domain.CompanyFinanceDO;
 import com.bootdo.finance.service.CompanyFinanceService;
@@ -14,15 +11,13 @@ import java.util.Map;
 
 @Service
 public class CompanyFinanceServiceImpl implements CompanyFinanceService {
-    @Autowired
-    private DictDao dictDao;
 
     @Autowired
     private CompanyFinanceDao companyFinanceDao;
 
     @Override
-    public DictDO get(Long id) {
-        return dictDao.get(id);
+    public CompanyFinanceDO get(Long id) {
+        return companyFinanceDao.get(id);
     }
 
     @Override
@@ -36,17 +31,17 @@ public class CompanyFinanceServiceImpl implements CompanyFinanceService {
     }
 
     @Override
-    public int update(DictDO dict) {
-        return dictDao.update(dict);
+    public int update(CompanyFinanceDO companyFinanceDO) {
+        return companyFinanceDao.update(companyFinanceDO);
     }
 
     @Override
-    public int remove(Long id) {
-        return companyFinanceDao.remove(id);
+    public int remove(CompanyFinanceDO companyFinanceDO) {
+        return companyFinanceDao.remove(companyFinanceDO);
     }
 
     @Override
-    public int batchRemove(Long[] ids) {
-        return companyFinanceDao.batchRemove(ids);
+    public int batchRemove(Long[] ids, CompanyFinanceDO companyFinanceDO) {
+        return companyFinanceDao.batchRemove(ids,companyFinanceDO);
     }
 }

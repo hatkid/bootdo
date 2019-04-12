@@ -15,16 +15,16 @@ import java.util.Map;
  */
 public interface CompanyFinanceService {
 
-	DictDO get(Long id);
+	CompanyFinanceDO get(Long id);
 
 	List<CompanyFinanceDO> list(Map<String, Object> map);
 
 	int save(CompanyFinanceDO companyFinanceDO);
 
-	int update(DictDO dict);
+	int update(CompanyFinanceDO companyFinanceDO);
 
-	int remove(Long id);
+	int remove(CompanyFinanceDO companyFinanceDO);
 
-	int batchRemove(Long[] ids);
+	int batchRemove(Long[] ids, CompanyFinanceDO companyFinanceDO);
 
 }
