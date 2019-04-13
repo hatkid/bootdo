@@ -1,6 +1,16 @@
 
 var prefix = "/manage/supplierDetail"
 $(function() {
+
+    $('#createTimeStart').datetimepicker({
+        format: 'YYYY-MM-DD',
+        locale: moment.locale('zh-cn')
+    });
+    $('#createTimeEnd').datetimepicker({
+        format: 'YYYY-MM-DD',
+        locale: moment.locale('zh-cn')
+    });
+
 	load();
 });
 function load() {
