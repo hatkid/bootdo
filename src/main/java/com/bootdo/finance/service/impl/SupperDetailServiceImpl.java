@@ -44,4 +44,9 @@ public class SupperDetailServiceImpl implements SupplierDetailService {
     public int batchRemove(Long[] ids, SupplierDetailDO supplierDetailDOO) {
         return supplierDetailDao.batchRemove(ids,supplierDetailDOO);
     }
+
+    @Override
+    public List<SupplierDetailDO> getCompanyName() {
+        return supplierDetailDao.getCompanyName();
+    }
 }

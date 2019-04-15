@@ -11,6 +11,7 @@ $(function() {
         locale: moment.locale('zh-cn')
     });
 
+    selectLoad();
 	load();
 });
 function load() {
@@ -118,14 +119,19 @@ function load() {
 function reLoad() {
 	var opt = {
 		query : {
-            companyName : $('#companyName').val()
+    		companyId : $('#companyName').val(),
+    		createTimeStart : $('#createTimeStart').val(),
+    		createTimeEnd : $('#createTimeEnd').val()
 		}
 	}
 	$('#exampleTable').bootstrapTable('refresh', opt);
 }
 
 function reset() {
-    $('#companyName').val('');
+    $("#companyName").val("");
+    $("#companyName").trigger("chosen:updated");
+    $('#createTimeStart').val('');
+    $('#createTimeEnd').val('');
 }
 
 function add() {
@@ -182,9 +188,9 @@ function addD(type,description) {
 }
 
 function exportData() {
-    var companyId = $('#companyName').combobox('getValue');
-    var createTimeStart = $('#createTimeStart').datetimebox('getValue');
-    var createTimeEnd = $('#createTimeEnd').datetimebox('getValue');
+    var companyId = $('#companyName').val();
+    var createTimeStart = $('#createTimeStart').val();
+    var createTimeEnd = $('#createTimeEnd').val();
     $("#companyIdDownload").val(companyId);
     $("#createTimeStartDownload").val(createTimeStart);
     $("#createTimeEndDownload").val(createTimeEnd);
@@ -223,4 +229,21 @@ function batchRemove() {
 			}
 		});
 	}, function() {});
+}
+
+function selectLoad() {
+    var html = "";
+    $.ajax({
+        url : prefix + '/getCompanyName',
+        success : function(data) {
+            //加载数据
+            for (var i = 0; i < data.length; i++) {
+                html += '<option value="' + data[i].id + '">' + data[i].companyName + '</option>'
+            }
+            $(".chosen-select").append(html);
+            $(".chosen-select").chosen({
+                maxHeight : 200
+            });
+        }
+    });
 }

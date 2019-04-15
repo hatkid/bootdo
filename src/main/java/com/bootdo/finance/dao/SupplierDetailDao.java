@@ -29,4 +29,6 @@ public interface SupplierDetailDao {
 	int remove(SupplierDetailDO supplierDetailDO);
 
 	int batchRemove(@Param("ids") Long[] ids, @Param("companyFinaceDO") SupplierDetailDO supplierDetailDO);
+
+    List<SupplierDetailDO> getCompanyName();
 }

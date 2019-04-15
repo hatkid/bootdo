@@ -61,5 +61,11 @@
 			#{id}
 		</foreach>
 	</update>
+	
+	<select id="getCompanyName"  resultType="com.bootdo.finance.domain.SupplierDetailDO">
+			select cf.companyName, cf.id from companyfinance cf
+					where cf.row_state = 1
+				order by cf.row_create_time desc
+	</select>
 
 </mapper>

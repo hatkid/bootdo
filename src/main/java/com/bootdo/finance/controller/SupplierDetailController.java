@@ -120,6 +120,16 @@ public class SupplierDetailController {
 	}
 
 	/**
+	 * 批量删除
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getCompanyName")
+	public List<SupplierDetailDO> getCompanyName() {
+		List<SupplierDetailDO> list = supplierDetailService.getCompanyName();
+		return list;
+	}
+
+	/**
 	 * 导出
 	 */
 	@GetMapping("/download")
