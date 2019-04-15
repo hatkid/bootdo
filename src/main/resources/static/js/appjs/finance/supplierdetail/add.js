@@ -15,6 +15,11 @@ $().ready(function() {
     },"小数点后最多为两位");         //验证错误信息
 
 	validateRule();
+    selectLoad();
+    $('#timedate').datetimepicker({
+        format: 'YYYY-MM-DD',
+        locale: moment.locale('zh-cn')
+    });
 });
 
 $.validator.setDefaults({
@@ -68,4 +73,21 @@ function validateRule() {
             }
 		}
 	})
+}
+
+function selectLoad() {
+    var html = "";
+    $.ajax({
+        url : '/manage/supplierDetail/getCompanyName',
+        success : function(data) {
+            //加载数据
+            for (var i = 0; i < data.length; i++) {
+                html += '<option value="' + data[i].id + '">' + data[i].companyName + '</option>'
+            }
+            $(".chosen-select").append(html);
+            $(".chosen-select").chosen({
+                maxHeight : 200
+            });
+        }
+    });
 }

@@ -1,5 +1,10 @@
 $().ready(function() {
 	validateRule();
+    selectLoad();
+    $('#timedate').datetimepicker({
+        format: 'YYYY-MM-DD',
+        locale: moment.locale('zh-cn')
+    });
 });
 
 $.validator.setDefaults({
@@ -46,4 +51,27 @@ function validateRule() {
 			}
 		}
 	})
+}
+
+function selectLoad() {
+    var html = "";
+    $.ajax({
+        url : '/manage/supplierDetail/getCompanyName',
+        success : function(data) {
+            //加载数据
+            for (var i = 0; i < data.length; i++) {
+                html += '<option value="' + data[i].id + '">' + data[i].companyName + '</option>'
+            }
+            $(".chosen-select").append(html);
+            $(".chosen-select").chosen({
+                maxHeight : 200
+            });
+        }
+    });
+    var companyTemp = $('#companyNameTemp').val();
+    console.log(companyTemp);
+    /**$("#companyName").val(companyTemp);**/
+    $("#companyName option[value='18']").attr("selected","selected");
+    $("#companyName").trigger("chosen:updated");
+    console.log("set");
 }

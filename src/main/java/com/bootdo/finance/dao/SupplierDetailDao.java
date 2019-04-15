@@ -1,6 +1,5 @@
 package com.bootdo.finance.dao;
 
-import com.bootdo.finance.domain.CompanyFinanceDO;
 import com.bootdo.finance.domain.SupplierDetailDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

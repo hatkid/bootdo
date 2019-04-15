@@ -20,7 +20,7 @@
 	</select>
 
 	<select id="get" resultType="com.bootdo.finance.domain.SupplierDetailDO">
-		select sd.* FROM supplierdetail sd where sd.id = #{id,jdbcType=INTEGER}
+		select sd.*, cf.companyName, cf.id companyId FROM supplierdetail sd left JOIN  companyfinance cf on cf.id = sd.company_finance_id where sd.id = #{id,jdbcType=INTEGER}
 	</select>
 
 	<insert id="save" parameterType="com.bootdo.finance.domain.SupplierDetailDO"
