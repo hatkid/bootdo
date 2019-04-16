@@ -8,7 +8,6 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <input type="hidden" id="companyNameTemp" th:value="${supplierDetailDO.companyId}">
                     <form class="form-horizontal m-t" id="signupForm">
                         <input id="id" name="id" th:value="${supplierDetailDO.id}"
                                class="form-control" type="hidden">
@@ -23,8 +22,8 @@
                             <label class="col-sm-3 control-label">供应商名称：</label>
                             <div class="col-sm-8">
                                 <select data-placeholder="公司名称" class="form-control chosen-select" id="companyName"
-                                        tabindex="2" style="width: 100%">
-                                    <option value="">公司名称</option>
+                                        tabindex="2" style="width: 100%" name="companyId">
+                                    <option th:value="${supplierDetailDO.companyId}"><span th:text="${supplierDetailDO.companyName}"></span></option>
                                 </select>
                             </div>
                         </div>

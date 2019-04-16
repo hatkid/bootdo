@@ -68,6 +68,10 @@ function load() {
 						}
 					},
                     {
+                        field : 'timedate',
+                        title : '日期'
+                    },
+                    {
                         field : 'companyName',
                         title : '公司名字'
                     },

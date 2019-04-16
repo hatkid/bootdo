@@ -68,10 +68,4 @@ function selectLoad() {
             });
         }
     });
-    var companyTemp = $('#companyNameTemp').val();
-    console.log(companyTemp);
-    /**$("#companyName").val(companyTemp);**/
-    $("#companyName option[value='18']").attr("selected","selected");
-    $("#companyName").trigger("chosen:updated");
-    console.log("set");
 }
