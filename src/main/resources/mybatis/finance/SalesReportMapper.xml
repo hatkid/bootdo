@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.finance.dao.SalesReportDao">
+
+	<select id="list" resultType="com.bootdo.finance.domain.SalesReportDO">
+		select sr.id, sr.customerName, sr.teaName, sr.color, sr.setCount, sr.saleCount, sr.totalCount, sr.price, sr.totalPrice,sr.subtotal,sr.remark,
+		date_format(sr.timedate, '%Y-%m-%d') timedate from salesreport sr
+		where sr.row_state = 1
+		<if test="customerName != null and customerName != ''">
+			and sr.customerName like concat('%', #{customerName, jdbcType=VARCHAR}, '%')
+		</if>
+		<if test="createTimeStart != null and createTimeStart != ''">
+			and sr.timedate &gt;= str_to_date(#{createTimeStart},'%Y-%m-%d %H:%i:%s')
+		</if>
+		<if test="createTimeEnd != null and createTimeEnd != ''">
+			and sr.timedate &lt;= str_to_date(#{createTimeEnd},'%Y-%m-%d %H:%i:%s')
+		</if>
+		order by sr.timedate desc
+	</select>
+
+	<select id="get" resultType="com.bootdo.finance.domain.SalesReportDO">
+		select sr.* FROM salesreport sr where sr.id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<insert id="save" parameterType="com.bootdo.finance.domain.SalesReportDO"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		salesreport(customerName,teaName,color,setCount,saleCount,totalCount,price,totalPrice,subtotal,remark,row_creater,row_modifier,row_create_time,row_modify_time,timedate)
+		VALUES(#{customerName,jdbcType=VARCHAR},#{teaName,jdbcType=VARCHAR},
+		#{color,jdbcType=VARCHAR},#{setCount,jdbcType=INTEGER},#{saleCount,jdbcType=INTEGER},
+		#{totalCount,jdbcType=INTEGER},#{price,jdbcType=DOUBLE},#{totalPrice,jdbcType=DOUBLE},
+		#{subtotal,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR},
+		#{row_creater,jdbcType=VARCHAR},
+		#{row_modifier,jdbcType=INTEGER},str_to_date(#{row_create_time},'%Y-%m-%d %H:%i:%s'),str_to_date(#{row_modify_time},'%Y-%m-%d %H:%i:%s'),str_to_date(#{timedate},'%Y-%m-%d %H:%i:%s'))
+	</insert>
+
+	<update id="update" parameterType="com.bootdo.finance.domain.SalesReportDO">
+		UPDATE salesreport SET
+		customerName = #{customerName},
+		teaName = #{teaName},
+		color = #{color},
+		setCount = #{setCount},
+		saleCount = #{saleCount},
+		totalCount = #{totalCount},
+		price = #{price},
+		timedate = str_to_date(#{timedate},'%Y-%m-%d %H:%i:%s'),
+		totalPrice = #{totalPrice},
+		subtotal = #{subtotal},
+		remark = #{remark},
+		row_modifier = #{row_modifier,jdbcType=INTEGER},
+		row_modify_time = str_to_date(#{row_modify_time},'%Y-%m-%d %H:%i:%s')
+		WHERE id=#{id,jdbcType=INTEGER}
+	</update>
+
+	<update id="remove">
+		update salesreport set row_state = 0, row_modifier = #{row_modifier,jdbcType=INTEGER}, row_modify_time = str_to_date(#{row_modify_time},'%Y-%m-%d %H:%i:%s') where id = #{id}
+	</update>
+
+	<update id="batchRemove">
+		update salesreport set row_state = 0, row_modifier = #{salesReportDO.row_modifier,jdbcType=INTEGER}, row_modify_time = str_to_date(#{salesReportDO.row_modify_time},'%Y-%m-%d %H:%i:%s') where id in
+		<foreach item="id" collection="ids" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</update>
+</mapper>

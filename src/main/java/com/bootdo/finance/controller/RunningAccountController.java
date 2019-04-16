@@ -36,7 +36,7 @@ public class RunningAccountController {
 
 	@GetMapping()
 	@RequiresPermissions("runningAccount:list")
-	String supplierDetailMain() {
+	String runningAccountMain() {
 		return "finance/runningaccount/list";
 	}
 
