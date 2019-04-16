@@ -120,7 +120,7 @@ public class SupplierDetailController {
 	}
 
 	/**
-	 * 批量删除
+	 * 获取供应商名称
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getCompanyName")
@@ -136,7 +136,6 @@ public class SupplierDetailController {
 	@ResponseBody
 	@RequiresPermissions("supplierDetail:export")
 	public void download(@RequestParam Map<String, Object> params, HttpServletResponse response) {
-		Query query = new Query(params);
 		String sheetName = "采购明细表";
 		List<String> titleName = new ArrayList<>();
 		titleName.add("日期");
