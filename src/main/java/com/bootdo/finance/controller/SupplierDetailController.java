@@ -37,7 +37,7 @@ public class SupplierDetailController {
 	@GetMapping()
 	@RequiresPermissions("supplierDetail:list")
 	String supplierDetailMain() {
-		return "finance/supplierDetail/list";
+		return "finance/supplierdetail/list";
 	}
 
 	@ResponseBody
@@ -55,7 +55,7 @@ public class SupplierDetailController {
 	@GetMapping("/add")
 	@RequiresPermissions("supplierDetail:add")
 	String add() {
-		return "finance/supplierDetail/add";
+		return "finance/supplierdetail/add";
 	}
 
 	@GetMapping("/edit/{id}")
@@ -63,7 +63,7 @@ public class SupplierDetailController {
 	String edit(@PathVariable("id") Long id, Model model) {
 		SupplierDetailDO supplierDetailDO = supplierDetailService.get(id);
 		model.addAttribute("supplierDetailDO", supplierDetailDO);
-		return "finance/supplierDetail/edit";
+		return "finance/supplierdetail/edit";
 	}
 
 	/**

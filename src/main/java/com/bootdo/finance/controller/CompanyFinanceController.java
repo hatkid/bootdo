@@ -4,7 +4,9 @@ import com.bootdo.common.utils.PageUtils;
 import com.bootdo.common.utils.Query;
 import com.bootdo.common.utils.R;
 import com.bootdo.finance.domain.CompanyFinanceDO;
+import com.bootdo.finance.domain.SupplierDetailDO;
 import com.bootdo.finance.service.CompanyFinanceService;
+import com.bootdo.finance.service.SupplierDetailService;
 import com.bootdo.util.EntityUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -36,6 +38,9 @@ public class CompanyFinanceController {
 
 	@Autowired
 	private CompanyFinanceService companyFinanceService;
+
+	@Autowired
+	private SupplierDetailService supplierDetailService;
 
 	@GetMapping()
 	@RequiresPermissions("companyFinance:list")
@@ -137,7 +142,7 @@ public class CompanyFinanceController {
 	@GetMapping("/download")
 	@ResponseBody
 	@RequiresPermissions("companyFinance:export")
-	public R download(@RequestParam Map<String, Object> params, HttpServletResponse response) {
+	public void download(@RequestParam Map<String, Object> params, HttpServletResponse response) {
 		Query query = new Query(params);
 		String sheetName = "采购明细表";
 		List<String> titleName = new ArrayList<>();
@@ -198,8 +203,8 @@ public class CompanyFinanceController {
 
 				}
 				// 将每个公司的明细都写入到excel中
-				/*SupplierDetail supplierDetail = null;
-				List<SupplierDetail> supplierDetailsList = null;
+				SupplierDetailDO supplierDetail = null;
+				List<SupplierDetailDO> supplierDetailsList = null;
 				titleName = new ArrayList<>();
 				titleName.add("日期");
 				titleName.add("公司名称");
@@ -220,10 +225,11 @@ public class CompanyFinanceController {
 				keyList.add("total");
 				keyList.add("paid");
 				keyList.add("payment");
-				for (CompanyFinance cf: list) {
-					supplierDetail = new SupplierDetail();
+				for (CompanyFinanceDO cf: dictList) {
+					supplierDetail = new SupplierDetailDO();
 					supplierDetail.setCompanyId(cf.getId());
-					supplierDetailsList = supplierDetailService.searchByPage(supplierDetail);
+					query.put("companyId", cf.getId());
+					supplierDetailsList = supplierDetailService.list(query);
 					sheetName = cf.getCompanyName();
 					// 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet
 					HSSFSheet sheetCompany = wb.createSheet(sheetName);
@@ -257,7 +263,7 @@ public class CompanyFinanceController {
 						}
 
 					}
-				}*/
+				}
 
 			} else {
 				System.out.println("error");
@@ -278,6 +284,5 @@ public class CompanyFinanceController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return R.ok();
 	}
 }
