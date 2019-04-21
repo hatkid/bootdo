@@ -12,14 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TestDemo {
-    @Autowired
-    RedisTemplate redisTemplate;
 
     @Test
     public void test() {
-        redisTemplate.opsForValue().set("a", "b");
-        System.out.println(redisTemplate.opsForValue().get("a"));
-    }
 
-    ;
+    }
 }
