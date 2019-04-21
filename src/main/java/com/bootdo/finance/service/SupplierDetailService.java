@@ -26,4 +26,5 @@ public interface SupplierDetailService {
 
 	int batchRemove(Long[] ids, SupplierDetailDO supplierDetailDO);
 
+    List<SupplierDetailDO> getCompanyName();
 }

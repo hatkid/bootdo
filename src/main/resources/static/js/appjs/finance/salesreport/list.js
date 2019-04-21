@@ -1,5 +1,5 @@
 
-var prefix = "/manage/supplierDetail"
+var prefix = "/manage/salesReport"
 $(function() {
 
     $('#createTimeStart').datetimepicker({
@@ -10,8 +10,6 @@ $(function() {
         format: 'YYYY-MM-DD',
         locale: moment.locale('zh-cn')
     });
-
-    selectLoad();
 	load();
 });
 function load() {
@@ -71,37 +69,41 @@ function load() {
                         title : '日期'
                     },
                     {
-                        field : 'companyName',
-                        title : '公司名字'
+                        field : 'customerName',
+                        title : '客户名称'
                     },
 					{
-						field : 'purchaseName',
-						title : '采购名称'
+						field : 'teaName',
+						title : '品名'
 					},
 					{
-						field : 'unit',
-						title : ' 单位',
-						width : '100px'
+						field : 'color',
+						title : '色别'
 					},
-					{
-						field : 'amount',
-						title : '数量'
-					},
+                    {
+                        field : 'setCount',
+                        title : '件数/套数'
+                    },
+                    {
+                        field : 'saleCount',
+                        title : '发货件数'
+                    },
+                    {
+                        field : 'totalCount',
+                        title : '合计数量'
+                    },
                     {
                         field : 'price',
                         title : '单价'
-                    },
-                    {
-                        field : 'total',
-                        title : '金额'
-                    },
-                    {
-                        field : 'paid',
-                        title : '已付款'
-                    },
-                    {
-                        field : 'payment',
-                        title : '付款方式'
+                    }, {
+                        field : 'totalPrice',
+                        title : '合计金额'
+                    }, {
+                        field : 'subtotal',
+                        title : '小计'
+                    }, {
+                        field : 'remark',
+                        title : '备注'
                     },
 					{
 						title : '操作',
@@ -122,7 +124,7 @@ function load() {
 function reLoad() {
 	var opt = {
 		query : {
-    		companyId : $('#companyName').val(),
+            customerName : $('#customerName').val(),
     		createTimeStart : $('#createTimeStart').val(),
     		createTimeEnd : $('#createTimeEnd').val()
 		}
@@ -131,8 +133,7 @@ function reLoad() {
 }
 
 function reset() {
-    $("#companyName").val("");
-    $("#companyName").trigger("chosen:updated");
+    $("#customerName").val("");
     $('#createTimeStart').val('');
     $('#createTimeEnd').val('');
 }
@@ -191,10 +192,10 @@ function addD(type,description) {
 }
 
 function exportData() {
-    var companyId = $('#companyName').val();
+    var customerName = $('#customerName').val();
     var createTimeStart = $('#createTimeStart').val();
     var createTimeEnd = $('#createTimeEnd').val();
-    $("#companyIdDownload").val(companyId);
+    $("#customerNameDownload").val(customerName);
     $("#createTimeStartDownload").val(createTimeStart);
     $("#createTimeEndDownload").val(createTimeEnd);
     $("#download").submit();
@@ -232,21 +233,4 @@ function batchRemove() {
 			}
 		});
 	}, function() {});
-}
-
-function selectLoad() {
-    var html = "";
-    $.ajax({
-        url : prefix + '/getCompanyName',
-        success : function(data) {
-            //加载数据
-            for (var i = 0; i < data.length; i++) {
-                html += '<option value="' + data[i].id + '">' + data[i].companyName + '</option>'
-            }
-            $(".chosen-select").append(html);
-            $(".chosen-select").chosen({
-                maxHeight : 200
-            });
-        }
-    });
 }

@@ -1,6 +1,5 @@
 package com.bootdo.finance.dao;
 
-import com.bootdo.finance.domain.CompanyFinanceDO;
 import com.bootdo.finance.domain.SupplierDetailDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -28,5 +27,7 @@ public interface SupplierDetailDao {
 
 	int remove(SupplierDetailDO supplierDetailDO);
 
-	int batchRemove(@Param("ids") Long[] ids, @Param("companyFinaceDO") SupplierDetailDO supplierDetailDO);
+	int batchRemove(@Param("ids") Long[] ids, @Param("supplierDetailDO") SupplierDetailDO supplierDetailDO);
+
+    List<SupplierDetailDO> getCompanyName();
 }

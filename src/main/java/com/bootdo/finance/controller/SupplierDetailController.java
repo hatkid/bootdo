@@ -120,13 +120,22 @@ public class SupplierDetailController {
 	}
 
 	/**
+	 * 获取供应商名称
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getCompanyName")
+	public List<SupplierDetailDO> getCompanyName() {
+		List<SupplierDetailDO> list = supplierDetailService.getCompanyName();
+		return list;
+	}
+
+	/**
 	 * 导出
 	 */
 	@GetMapping("/download")
 	@ResponseBody
 	@RequiresPermissions("supplierDetail:export")
 	public void download(@RequestParam Map<String, Object> params, HttpServletResponse response) {
-		Query query = new Query(params);
 		String sheetName = "采购明细表";
 		List<String> titleName = new ArrayList<>();
 		titleName.add("日期");

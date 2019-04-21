@@ -1,6 +1,5 @@
 $().ready(function() {
 	validateRule();
-    selectLoad();
     $('#timedate').datetimepicker({
         format: 'YYYY-MM-DD',
         locale: moment.locale('zh-cn')
@@ -16,7 +15,7 @@ function update() {
 	$.ajax({
 		cache : true,
 		type : "POST",
-		url : "/manage/supplierDetail/update",
+		url : "/manage/runningAccount/update",
 		data : $('#signupForm').serialize(),// 你的formid
 		async : false,
 		error : function(request) {
@@ -51,21 +50,4 @@ function validateRule() {
 			}
 		}
 	})
-}
-
-function selectLoad() {
-    var html = "";
-    $.ajax({
-        url : '/manage/supplierDetail/getCompanyName',
-        success : function(data) {
-            //加载数据
-            for (var i = 0; i < data.length; i++) {
-                html += '<option value="' + data[i].id + '">' + data[i].companyName + '</option>'
-            }
-            $(".chosen-select").append(html);
-            $(".chosen-select").chosen({
-                maxHeight : 200
-            });
-        }
-    });
 }

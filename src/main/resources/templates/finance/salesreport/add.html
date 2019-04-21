@@ -17,30 +17,39 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">供应商名称：</label>
+								<label class="col-sm-3 control-label">客户名称：</label>
 								<div class="col-sm-8">
-									<select data-placeholder="公司名称" class="form-control chosen-select" id="companyName"
-											tabindex="2" style="width: 100%">
-										<option value="">公司名称</option>
-									</select>
+									<input id="customerName" name="customerName" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">采购名称：</label>
+								<label class="col-sm-3 control-label">品名：</label>
 								<div class="col-sm-8">
-									<input id="purchaseName" name="purchaseName" class="form-control" type="text">
+									<input id="teaName" name="teaName" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">单位：</label>
+								<label class="col-sm-3 control-label">色别：</label>
 								<div class="col-sm-8">
-									<input id="unit" name="unit" class="form-control" type="text">
+									<input id="color" name="color" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">数量：</label>
+								<label class="col-sm-3 control-label">件数/套数：</label>
 								<div class="col-sm-8">
-									<input id="amount" name="amount" class="form-control" type="number" step="0">
+									<input id="setCount" name="setCount" class="form-control" type="number">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">发货件数：</label>
+								<div class="col-sm-8">
+									<input id="saleCount" name="saleCount" class="form-control" type="number">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">合计数量：</label>
+								<div class="col-sm-8">
+									<input id="totalCount" name="totalCount" class="form-control" type="number">
 								</div>
 							</div>
 							<div class="form-group">
@@ -50,21 +59,21 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">金额：</label>
+								<label class="col-sm-3 control-label">合计金额：</label>
 								<div class="col-sm-8">
-									<input id="total" name="total" class="form-control" type="number" step="0.01">
+									<input id="totalPrice" name="totalPrice" class="form-control" type="number" step="0.01">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">已付款：</label>
+								<label class="col-sm-3 control-label">小计：</label>
 								<div class="col-sm-8">
-									<input id="paid" name="paid" class="form-control" type="number" step="0.01">
+									<input id="subtotal" name="subtotal" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">付款方式：</label>
+								<label class="col-sm-3 control-label">备注：</label>
 								<div class="col-sm-8">
-									<input id="payment" name="payment" class="form-control" type="text">
+									<input id="remark" name="remark" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
@@ -79,7 +88,7 @@
 		</div>
 	</div>
 	<div th:include="include::footer"></div>
-	<script type="text/javascript" src="/js/appjs/finance/supplierdetail/add.js">
+	<script type="text/javascript" src="/js/appjs/finance/salesreport/add.js">
 	</script>
 </body>
 </html>

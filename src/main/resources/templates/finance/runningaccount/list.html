@@ -9,15 +9,15 @@
 				<div class="ibox-body">
 					<div class="fixed-table-toolbar">
 						<div class="columns pull-left">
-							<button shiro:hasPermission="supplierDetail:add" type="button"
+							<button shiro:hasPermission="runningAccount:add" type="button"
 								class="btn  btn-primary" onclick="add()">
 								<i class="fa fa-plus" aria-hidden="true"></i>添加
 							</button>
-							<button shiro:hasPermission="supplierDetail:batchRemove"
+							<button shiro:hasPermission="runningAccount:batchRemove"
 								type="button" class="btn  btn-danger" onclick="batchRemove()">
 								<i class="fa fa-trash" aria-hidden="true"></i>批量删除
 							</button>
-							<button shiro:hasPermission="supplierDetail:export"
+							<button shiro:hasPermission="runningAccount:export"
 									type="button" class="btn  btn-danger" onclick="exportData()">
 								<i class="glyphicon glyphicon-export" aria-hidden="true"></i>导出
 							</button>
@@ -42,10 +42,8 @@
 								   placeholder="开始时间">
 						</div>
 						<div class="columns pull-right col-md-2 nopadding">
-							<select data-placeholder="公司名称" class="form-control chosen-select" id="companyName"
-									tabindex="2" style="width: 100%">
-								<option value="">公司名称</option>
-							</select>
+							<input id="companyName" type="text" class="form-control" style="margin-top: 2px"
+								   placeholder="单位名称">
 						</div>
 					</div>
 					<table id="exampleTable" data-mobile-responsive="true">
@@ -63,17 +61,17 @@
 			var s_add_h = 'hidden';
 		</script>
 	</div>
-	<div shiro:hasPermission="supplierDetail:edit">
+	<div shiro:hasPermission="runningAccount:edit">
 		<script type="text/javascript">
 			s_edit_h = '';
 		</script>
 	</div>
-	<div shiro:hasPermission="supplierDetail:remove">
+	<div shiro:hasPermission="runningAccount:remove">
 		<script type="text/javascript">
 			var s_remove_h = '';
 		</script>
 	</div>
-	<div shiro:hasPermission="supplierDetail:add">
+	<div shiro:hasPermission="runningAccount:add">
 		<script type="text/javascript">
 			var s_add_h = '';
 		</script>
@@ -81,10 +79,10 @@
 
 	</div>
 	<div style="display:none;">
-		<form action="supplierDetail/download" method="get"
+		<form action="runningAccount/download" method="get"
 			  id="download">
-			<input type="hidden" name="companyId"
-				   id="companyIdDownload" />
+			<input type="hidden" name="companyName"
+				   id="companyNameDownload" />
 			<input type="hidden"
 				   name="createTimeStart" id="createTimeStartDownload" />
 			<input type="hidden"
@@ -93,6 +91,6 @@
 	</div>
 	<div th:include="include :: footer"></div>
 	<script type="text/javascript"
-		src="/js/appjs/finance/supplierdetail/list.js"></script>
+		src="/js/appjs/finance/runningaccount/list.js"></script>
 </body>
 </html>
