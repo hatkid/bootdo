@@ -24,7 +24,7 @@ public class CompanyFinanceDO extends CommonEntity implements Serializable {
 	private double loanAmount;
 
 	// 年初欠款
-	private double arrears;
+	private Double arrears;
 
 	// 已付款
 	private double paid;
