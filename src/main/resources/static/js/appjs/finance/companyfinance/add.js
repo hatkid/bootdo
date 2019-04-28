@@ -55,8 +55,7 @@ function validateRule() {
 				required : true
 			},
             arrears : {
-                required : true,
-				minNumber : $("#arrears").val()
+                isMyNumber : true
             }
 		},
 		messages : {
@@ -64,7 +63,7 @@ function validateRule() {
 				required : icon + "请输入公司名称"
 			},
             arrears : {
-                required : icon + "请输入正确的数字"
+                isMyNumber : icon + "请输入正确的数字,最多两位小数"
             }
 		}
 	})
