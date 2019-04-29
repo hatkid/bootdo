@@ -1,19 +1,4 @@
 $().ready(function() {
-
-    //自定义validate验证输入的数字小数点位数不能大于两位
-    jQuery.validator.addMethod("minNumber",function(value, element){
-        var returnVal = true;
-        inputZ=value;
-        var ArrMen= inputZ.split(".");    //截取字符串
-        if(ArrMen.length==2){
-            if(ArrMen[1].length>2){    //判断小数点后面的字符串长度
-                returnVal = false;
-                return false;
-            }
-        }
-        return returnVal;
-    },"小数点后最多为两位");         //验证错误信息
-
 	validateRule();
     selectLoad();
     $('#timedate').datetimepicker({
@@ -23,10 +8,11 @@ $().ready(function() {
 });
 
 $.validator.setDefaults({
-	submitHandler : function() {
-		save();
-	}
+    submitHandler : function() {
+        save();
+    }
 });
+
 function save() {
 	$.ajax({
 		cache : true,
@@ -54,25 +40,55 @@ function save() {
 }
 function validateRule() {
 	var icon = "<i class='fa fa-times-circle'></i> ";
-	$("#signupForm").validate({
-		rules : {
-			companyName : {
-				required : true
-			},
-            arrears : {
-                required : true,
-				minNumber : $("#arrears").val()
+    $("#signupForm").validate({
+        ignore:":hidden:not(select)",
+        rules : {
+            timedate : {
+                required : true
+            },
+            companyId : {
+                isSelectEmpty : true
+            },
+            purchaseName : {
+                required : true
+            },
+            amount : {
+                isDigitsOrEmpty : true
+            },
+            price : {
+                isMyNumber : true
+            },
+            total : {
+                isMyNumber : true
+            },
+            paid : {
+                isMyNumber : true
             }
-		},
-		messages : {
-            companyName : {
-				required : icon + "请输入公司名称"
-			},
-            arrears : {
-                required : icon + "请输入正确的数字"
+        },
+        messages : {
+            timedate : {
+                required : icon + "请选择日期"
+            },
+            companyId : {
+                isSelectEmpty : icon + "请选择供应商名称"
+            },
+            purchaseName : {
+                required : icon + "请输入采购名称"
+            },
+            amount : {
+                isDigitsOrEmpty : icon + "请输入正确的整数"
+            },
+            price : {
+                isMyNumber : icon + "请输入正确的数字,最多两位小数"
+            },
+            total : {
+                isMyNumber : icon + "请输入正确的数字,最多两位小数"
+            },
+            paid : {
+                isMyNumber : icon + "请输入正确的数字,最多两位小数"
             }
-		}
-	})
+        }
+    })
 }
 
 function selectLoad() {

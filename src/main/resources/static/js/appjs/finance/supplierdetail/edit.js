@@ -39,18 +39,55 @@ function update() {
 }
 function validateRule() {
 	var icon = "<i class='fa fa-times-circle'></i> ";
-	$("#signupForm").validate({
-		rules : {
-			name : {
-				required : true
-			}
-		},
-		messages : {
-			name : {
-				required : icon + "请输入名字"
-			}
-		}
-	})
+    $("#signupForm").validate({
+        ignore:":hidden:not(select)",
+        rules : {
+            timedate : {
+                required : true
+            },
+            companyId : {
+                isSelectEmpty : true
+            },
+            purchaseName : {
+                required : true
+            },
+            amount : {
+                isDigitsOrEmpty : true
+            },
+            price : {
+                isMyNumber : true
+            },
+            total : {
+                isMyNumber : true
+            },
+            paid : {
+                isMyNumber : true
+            }
+        },
+        messages : {
+            timedate : {
+                required : icon + "请选择日期"
+            },
+            companyId : {
+                isSelectEmpty : icon + "请选择供应商名称"
+            },
+            purchaseName : {
+                required : icon + "请输入采购名称"
+            },
+            amount : {
+                isDigitsOrEmpty : icon + "请输入正确的整数"
+            },
+            price : {
+                isMyNumber : icon + "请输入正确的数字,最多两位小数"
+            },
+            total : {
+                isMyNumber : icon + "请输入正确的数字,最多两位小数"
+            },
+            paid : {
+                isMyNumber : icon + "请输入正确的数字,最多两位小数"
+            }
+        }
+    })
 }
 
 function selectLoad() {

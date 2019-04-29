@@ -105,7 +105,14 @@ public class CompanyFinanceController {
 	@RequiresPermissions("companyFinance:edit")
 	public R update(CompanyFinanceDO companyFinanceDO) {
 		EntityUtil.setCommonInfo(companyFinanceDO);
-		companyFinanceService.update(companyFinanceDO);
+		// 判断捕捉公司名字重复的提醒
+		try {
+			companyFinanceService.update(companyFinanceDO);
+		} catch (Exception e) {
+			if (e instanceof DuplicateKeyException) {
+				return R.error("公司名称重复!");
+			}
+		}
 		return R.ok();
 	}
 

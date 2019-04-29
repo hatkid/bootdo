@@ -34,16 +34,22 @@ function update() {
 }
 function validateRule() {
 	var icon = "<i class='fa fa-times-circle'></i> ";
-	$("#signupForm").validate({
-		rules : {
-			name : {
-				required : true
-			}
-		},
-		messages : {
-			name : {
-				required : icon + "请输入名字"
-			}
-		}
-	})
+    $("#signupForm").validate({
+        rules : {
+            companyName : {
+                required : true
+            },
+            arrears : {
+                isMyNumber : true
+            }
+        },
+        messages : {
+            companyName : {
+                required : icon + "请输入公司名称"
+            },
+            arrears : {
+                isMyNumber : icon + "请输入正确的数字,最多两位小数"
+            }
+        }
+    })
 }
