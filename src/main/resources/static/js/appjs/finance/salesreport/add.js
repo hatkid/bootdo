@@ -1,19 +1,4 @@
 $().ready(function() {
-
-    //自定义validate验证输入的数字小数点位数不能大于两位
-    jQuery.validator.addMethod("minNumber",function(value, element){
-        var returnVal = true;
-        inputZ=value;
-        var ArrMen= inputZ.split(".");    //截取字符串
-        if(ArrMen.length==2){
-            if(ArrMen[1].length>2){    //判断小数点后面的字符串长度
-                returnVal = false;
-                return false;
-            }
-        }
-        return returnVal;
-    },"小数点后最多为两位");         //验证错误信息
-
 	validateRule();
     $('#timedate').datetimepicker({
         format: 'YYYY-MM-DD',
@@ -52,24 +37,66 @@ function save() {
 
 }
 function validateRule() {
-	var icon = "<i class='fa fa-times-circle'></i> ";
-	$("#signupForm").validate({
-		rules : {
-			companyName : {
-				required : true
-			},
-            arrears : {
-                required : true,
-				minNumber : $("#arrears").val()
+    var icon = "<i class='fa fa-times-circle'></i> ";
+    $("#signupForm").validate({
+        ignore:":hidden:not(select)",
+        rules : {
+            timedate : {
+                required : true
+            },
+            customerName : {
+                required : true
+            },
+            teaName : {
+                required : true
+            },
+            color : {
+                required : true
+            },
+            setCount : {
+                digits : true
+            },
+            saleCount : {
+                digits : true
+            },
+            totalCount : {
+                digits : true
+            },
+            price : {
+                digits : true
+            },
+            totalPrice : {
+                digits : true
             }
-		},
-		messages : {
-            companyName : {
-				required : icon + "请输入公司名称"
-			},
-            arrears : {
-                required : icon + "请输入正确的数字"
+        },
+        messages : {
+            timedate : {
+                required : icon + "请选择日期"
+            },
+            customerName : {
+                required : icon + "请输入客户名称"
+            },
+            teaName : {
+                required : icon + "请输入品名"
+            },
+            color : {
+                required : icon + "请输入色别"
+            },
+            setCount : {
+                digits : icon + "请输入正确的整数"
+            },
+            saleCount : {
+                digits : icon + "请输入正确的整数"
+            },
+            totalCount : {
+                digits : icon + "请输入正确的整数"
+            },
+            price : {
+                digits : icon + "请输入正确的整数"
+            },
+            totalPrice : {
+                digits : icon + "请输入正确的整数"
             }
-		}
-	})
+        }
+    })
 }
