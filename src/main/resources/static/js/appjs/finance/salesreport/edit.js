@@ -37,17 +37,66 @@ function update() {
 
 }
 function validateRule() {
-	var icon = "<i class='fa fa-times-circle'></i> ";
-	$("#signupForm").validate({
-		rules : {
-			name : {
-				required : true
-			}
-		},
-		messages : {
-			name : {
-				required : icon + "请输入名字"
-			}
-		}
-	})
+    var icon = "<i class='fa fa-times-circle'></i> ";
+    $("#signupForm").validate({
+        ignore:":hidden:not(select)",
+        rules : {
+            timedate : {
+                required : true
+            },
+            customerName : {
+                required : true
+            },
+            teaName : {
+                required : true
+            },
+            color : {
+                required : true
+            },
+            setCount : {
+                digits : true
+            },
+            saleCount : {
+                digits : true
+            },
+            totalCount : {
+                digits : true
+            },
+            price : {
+                digits : true
+            },
+            totalPrice : {
+                digits : true
+            }
+        },
+        messages : {
+            timedate : {
+                required : icon + "请选择日期"
+            },
+            customerName : {
+                required : icon + "请输入客户名称"
+            },
+            teaName : {
+                required : icon + "请输入品名"
+            },
+            color : {
+                required : icon + "请输入色别"
+            },
+            setCount : {
+                digits : icon + "请输入正确的整数"
+            },
+            saleCount : {
+                digits : icon + "请输入正确的整数"
+            },
+            totalCount : {
+                digits : icon + "请输入正确的整数"
+            },
+            price : {
+                digits : icon + "请输入正确的整数"
+            },
+            totalPrice : {
+                digits : icon + "请输入正确的整数"
+            }
+        }
+    })
 }
