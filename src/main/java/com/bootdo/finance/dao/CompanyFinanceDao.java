@@ -29,4 +29,6 @@ public interface CompanyFinanceDao {
 	int remove(CompanyFinanceDO companyFinanceDO);
 
 	int batchRemove(@Param("ids") Long[] ids, @Param("companyFinaceDO") CompanyFinanceDO companyFinanceDO);
+
+    int checkExistedCompanyName(CompanyFinanceDO companyFinanceDO);
 }

@@ -82,15 +82,15 @@ public class CompanyFinanceController {
 	@RequiresPermissions("companyFinance:add")
 	public R save(CompanyFinanceDO companyFinanceDO) {
 		EntityUtil.setCommonInfo(companyFinanceDO);
+
 		// 判断捕捉公司名字重复的提醒
-		try {
+		int result = companyFinanceService.checkExistedCompanyName(companyFinanceDO);
+		if (result == 0) {
 			if (companyFinanceService.save(companyFinanceDO) > 0) {
 				return R.ok();
 			}
-		} catch (Exception e) {
-			if (e instanceof DuplicateKeyException) {
-				return R.error("公司名称重复!");
-			}
+		} else {
+			return R.error("公司名称重复!");
 		}
 
 
@@ -106,12 +106,13 @@ public class CompanyFinanceController {
 	public R update(CompanyFinanceDO companyFinanceDO) {
 		EntityUtil.setCommonInfo(companyFinanceDO);
 		// 判断捕捉公司名字重复的提醒
-		try {
+		int result = companyFinanceService.checkExistedCompanyName(companyFinanceDO);
+		if (result == 0) {
 			companyFinanceService.update(companyFinanceDO);
-		} catch (Exception e) {
-			if (e instanceof DuplicateKeyException) {
-				return R.error("公司名称重复!");
-			}
+		} else {
+
+			return R.error("公司名称重复!");
+
 		}
 		return R.ok();
 	}

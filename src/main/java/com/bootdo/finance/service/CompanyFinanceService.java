@@ -1,6 +1,5 @@
 package com.bootdo.finance.service;
 
-import com.bootdo.common.domain.DictDO;
 import com.bootdo.finance.domain.CompanyFinanceDO;
 
 import java.util.List;
@@ -27,4 +26,5 @@ public interface CompanyFinanceService {
 
 	int batchRemove(Long[] ids, CompanyFinanceDO companyFinanceDO);
 
+    int checkExistedCompanyName(CompanyFinanceDO companyFinanceDO);
 }

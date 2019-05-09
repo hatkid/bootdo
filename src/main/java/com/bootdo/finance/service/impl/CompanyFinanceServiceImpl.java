@@ -44,4 +44,9 @@ public class CompanyFinanceServiceImpl implements CompanyFinanceService {
     public int batchRemove(Long[] ids, CompanyFinanceDO companyFinanceDO) {
         return companyFinanceDao.batchRemove(ids,companyFinanceDO);
     }
+
+    @Override
+    public int checkExistedCompanyName(CompanyFinanceDO companyFinanceDO) {
+        return companyFinanceDao.checkExistedCompanyName(companyFinanceDO);
+    }
 }

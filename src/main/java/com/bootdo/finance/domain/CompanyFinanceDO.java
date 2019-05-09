@@ -21,20 +21,20 @@ public class CompanyFinanceDO extends CommonEntity implements Serializable {
 	private String companyName;
 
 	// 货款金额
-	private double loanAmount;
+	private Double loanAmount;
 
 	// 年初欠款
 	private Double arrears;
 
 	// 已付款
-	private double paid;
+	private Double paid;
 
 	// 总欠款额
-	private double totalArrears;
+	private Double totalArrears;
 
 	// 时间
 	private String timedate;
 
 	// 渠道：0-pc；1-小程序
-	private int channel;
+	private Integer channel;
 }

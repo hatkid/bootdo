@@ -53,4 +53,11 @@
 		</foreach>
 	</update>
 
+	<select id="checkExistedCompanyName" parameterType="com.bootdo.finance.domain.CompanyFinanceDO" resultType="int">
+		select count(*) FROM companyfinance cf where cf.row_state = 1 and cf.companyName = #{companyName,jdbcType=VARCHAR}
+		<if test="id != null and id != '' and id != 0">
+			and cf.id != #{id}
+		</if>
+	</select>
+
 </mapper>
